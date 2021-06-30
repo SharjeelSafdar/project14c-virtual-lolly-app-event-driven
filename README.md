@@ -4,7 +4,7 @@
   </a>
 </p>
 <h1 align="center">
-  Project 14C: Serverless JAMstack Virtual Lolly App With with with Event-Driven Architecture
+  Project 14C: Serverless JAMstack Virtual Lolly App with Event-Driven Architecture
 </h1>
 
 ## Link to Web App
