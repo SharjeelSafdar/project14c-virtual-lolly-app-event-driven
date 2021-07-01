@@ -1,0 +1,47 @@
+type Lolly {
+  id: ID!
+  topColor: String!
+  middleColor: String!
+  bottomColor: String!
+  recipientName: String!
+  message: String!
+  sendersName: String!
+}
+
+input NewLollyInput {
+  topColor: String!
+  middleColor: String!
+  bottomColor: String!
+  recipientName: String!
+  message: String!
+  sendersName: String!
+}
+
+input LollyInput {
+  id: ID!
+  topColor: String!
+  middleColor: String!
+  bottomColor: String!
+  recipientName: String!
+  message: String!
+  sendersName: String!
+}
+
+type LollyCreatedReturnType {
+  clientId: String!
+  lolly: Lolly!
+}
+
+type Query {
+  lollies: [Lolly]!
+}
+
+type Mutation {
+  createLolly(clientId: String!, newLolly: NewLollyInput!): String!
+  lollyCreated(clientId: String!, lolly: LollyInput!): LollyCreatedReturnType!
+}
+
+type Subscription {
+  onLollyCreated(clientId: String!): LollyCreatedReturnType
+    @aws_subscribe(mutations: ["lollyCreated"])
+}
