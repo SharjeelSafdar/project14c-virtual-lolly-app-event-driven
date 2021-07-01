@@ -19,6 +19,7 @@ on:
       - "backend/utils/lambda/ddbLambda/**"
       - "backend/utils/lambda/gqlLambda/**"
       - "backend/utils/lambda/snsLambda/**"
+      - "backend/utils/lambda/githubLambda/**"
       - "backend/.gitignore"
       - "backend/.npmignore"
       - "backend/README.md"
@@ -35,6 +36,7 @@ on:
       - "backend/utils/lambda/ddbLambda/**"
       - "backend/utils/lambda/gqlLambda/**"
       - "backend/utils/lambda/snsLambda/**"
+      - "backend/utils/lambda/githubLambda/**"
       - "backend/.gitignore"
       - "backend/.npmignore"
       - "backend/README.md"
@@ -65,6 +67,11 @@ jobs:
         uses: bahmutov/npm-install@v1
         with:
           working-directory: backend/utils/lambda/gqlLambda
+
+      - name: Install Dependencies for GitHub Lambda Function
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: backend/utils/lambda/githubLambda
 
       - name: Install Dependencies for Lambda@Edge
         uses: bahmutov/npm-install@v1

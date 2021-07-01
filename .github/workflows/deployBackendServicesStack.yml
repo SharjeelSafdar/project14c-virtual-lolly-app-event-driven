@@ -60,6 +60,11 @@ jobs:
         with:
           working-directory: backend/utils/lambda/gqlLambda
 
+      - name: Install Dependencies for GitHub Lambda Function
+        uses: bahmutov/npm-install@v1
+        with:
+          working-directory: backend/utils/lambda/githubLambda
+
       - name: Build CDK App with TypeScript Compiler
         working-directory: backend
         run: npm run build

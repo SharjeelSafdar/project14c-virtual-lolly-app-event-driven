@@ -209,6 +209,22 @@ export class ServicesStack extends cdk.Stack {
     });
     snsLollyCreationTopic.grantPublish(snsLambda);
 
+    /* ******************************************************************* */
+    /* ******* Lambda Function to Trigger Gihub CI/CD on New Lolly ******* */
+    /* ******************************************************************* */
+    const oauthToken = cdk.SecretValue.secretsManager(
+      "arn:aws:secretsmanager:us-east-2:731540390537:secret:GithubToken-cY2y6b"
+    );
+    const githubLambda = new lambda.Function(this, "P14cGitHubLambda", {
+      functionName: "P14c-GitHub-Lambda",
+      runtime: lambda.Runtime.NODEJS_14_X,
+      code: lambda.Code.fromAsset("utils/lambda/githubLambda"),
+      handler: "index.handler",
+      environment: {
+        OAUTH_TOKEN: oauthToken.toString(),
+      },
+    });
+
     /* **************************************************************** */
     /* ********** State Machine to Be Invoked By EventBridge ********** */
     /* **************************************************************** */
@@ -223,10 +239,14 @@ export class ServicesStack extends cdk.Stack {
       lambdaFunction: snsLambda,
       inputPath: "$.Payload",
     });
+    const githubStep = new sfTasks.LambdaInvoke(this, "InvokeGithubLambda", {
+      lambdaFunction: githubLambda,
+    });
 
     const stateMachineDefinition = sf.Chain.start(ddbStep)
       .next(gqlStep)
-      .next(snsStep);
+      .next(snsStep)
+      .next(githubStep);
 
     const stateMachine = new sf.StateMachine(this, "P14cStateMachine", {
       stateMachineName: "P14c-Lolly-State-Machine",
