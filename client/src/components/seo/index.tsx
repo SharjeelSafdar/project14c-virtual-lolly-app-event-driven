@@ -19,7 +19,11 @@ const SEO: FC<SeoProps> = ({ description, lang, meta, title }) => {
           siteMetadata {
             title
             description
-            author
+            author {
+              email
+              github
+              name
+            }
           }
         }
       }
@@ -54,19 +58,19 @@ const SEO: FC<SeoProps> = ({ description, lang, meta, title }) => {
           content: `website`,
         },
         {
-          name: `twitter:card`,
+          name: `github:card`,
           content: `summary`,
         },
         {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
+          name: `github:creator`,
+          content: site.siteMetadata?.author.name || ``,
         },
         {
-          name: `twitter:title`,
+          name: `github:title`,
           content: title,
         },
         {
-          name: `twitter:description`,
+          name: `github:description`,
           content: metaDescription,
         },
       ].concat(meta || [])}
@@ -81,7 +85,11 @@ type QueryResponse = {
     siteMetadata: {
       title: string;
       description: string;
-      author: string;
+      author: {
+        email: string;
+        github: string;
+        name: string;
+      };
     };
   };
 };

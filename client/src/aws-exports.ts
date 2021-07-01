@@ -8,6 +8,7 @@ const awsmobile = {
   aws_appsync_region: "us-east-2",
   aws_appsync_authenticationType: "API_KEY",
   aws_appsync_apiKey: "da2-25adbnz4zffynki5wscvaxz6ca",
+  aws_cloudfront_domain: "dfloplqh4uaf7.cloudfront.net",
 };
 
 export default awsmobile;

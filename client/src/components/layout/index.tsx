@@ -2,38 +2,55 @@ import React, { FC } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "../header";
-import "./layout.css";
 
 const Layout: FC = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+  const data = useStaticQuery<QueryResponse>(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            author {
+              github
+              name
+            }
+          }
         }
       }
-    }
-  `);
+    `
+  );
+  const author = data.site.siteMetadata.author;
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <Header />
+      <div className="container">
         <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <footer>
+          <p>
+            Hosted with{" "}
+            <a
+              href="https://aws.amazon.com/cloudfront/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              AWS CloudFront
+            </a>{" "}
+            by{" "}
+            <a href={author.github} target="_blank" rel="noopener noreferrer">
+              {author.name}
+            </a>
+          </p>
+          <p>
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a
+              href="https://www.gatsbyjs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Gatsby
+            </a>
+          </p>
         </footer>
       </div>
     </>
@@ -41,3 +58,14 @@ const Layout: FC = ({ children }) => {
 };
 
 export default Layout;
+
+type QueryResponse = {
+  site: {
+    siteMetadata: {
+      author: {
+        github: string;
+        name: string;
+      };
+    };
+  };
+};
