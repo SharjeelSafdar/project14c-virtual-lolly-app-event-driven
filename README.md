@@ -23,11 +23,12 @@ The following are some of the features of this project:
 - Demonstrates CRUD operations using DynamoDB through the GraphQL API
 - The AppSync queries are performed synchronously with a DynamoDB data source.
 - The AppSync mutation `createLolly` is performed assynchronously. An HTTP data source simply puts the information about the mutation on [EventBridge](https://aws.amazon.com/eventbridge/) default bus.
-- EventBridge invokes a [AWS Step Functions](https://aws.amazon.com/step-functions/) State Machine which orchestrates three [Lambda](https://aws.amazon.com/lambda/) functions in a sequence.
+- EventBridge invokes a [AWS Step Functions](https://aws.amazon.com/step-functions/) State Machine which orchestrates four [Lambda](https://aws.amazon.com/lambda/) functions in a sequence.
 - First Lambda function, `ddbLambda` performs the actual mutation on the DynamoDB Table with the help of `aws-sdk`.
 - Second Lambda function, `gqlLambda` calls a mutation on AppSync called `lollyCreated`.
 - The client listens for this mutation with an AppSync subscription called `onLollyCreated` and redirects to the new lolly page.
 - The third Lambda function, `snsLambda` publishes a message about the new lolly on an [SNS](https://aws.amazon.com/sns/) topic to notify through email.
+- The last Lambda function sends a post request on GitHub api to trigger a workflow to redeploy the Gatsby site to S3.
 - Uses [Amplify](https://amplify.com/) for GraphQL queries and mutations at client side
 - Bootstrapped with [GatsbyJS](https://www.gatsbyjs.com/)
 - Additionally, includes TypeScript support for gatsby-config, gatsby-node, gatsby-browser and gatsby-ssr files
@@ -49,6 +50,7 @@ It contanis the AWS services used by the web client. It has the following constr
 - A Lamba function to perform the actual mutation on the DynamoDB table
 - Another Lambda function to call an AppSync mutation to inform the client side about the new lolly through an AppSync subscription
 - Another Lamba function to publish a message on SNS
+- Another Lambda function sends post request to GitHub api to trigger the workflow to rebuild and redeploy the Gatsby app.
 - A Step Functions State Machine to run these Lambda functions sequentially.
 - An EventBridge rule to invoke this state machine when the `createLolly` mutation is performed by the client side
 
