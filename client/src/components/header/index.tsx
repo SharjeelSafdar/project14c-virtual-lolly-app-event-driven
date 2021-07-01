@@ -1,37 +1,30 @@
 import React, { FC } from "react";
 import { Link } from "gatsby";
 
-interface HeaderProps {
-  siteTitle: string;
-}
+import GithubCornor from "../githubCornor";
 
-const Header: FC<HeaderProps> = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-);
+/**
+ * Header component that sits at the top of each component.
+ */
+const Header: FC = () => {
+  const repoUrl =
+    "https://github.com/SharjeelSafdar/project14c-virtual-lolly-app-event-driven";
+
+  return (
+    <>
+      <GithubCornor repoUrl={repoUrl} />
+      <header>
+        <h1 className="title">
+          <Link to="/">virtual lollipop</Link>
+        </h1>
+        <p className="subtitle">
+          because we all know someone
+          <br />
+          who deserves some sugar.
+        </p>
+      </header>
+    </>
+  );
+};
 
 export default Header;
