@@ -8,6 +8,7 @@ env:
 # 2) pull_request generated on main branch
 # 3) It's triggered only by changes in relavent files in client/ directory.
 on:
+  repository_dispatch:
   push:
     branch: [main]
     paths-ignore:
