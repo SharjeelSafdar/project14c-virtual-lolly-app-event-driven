@@ -54,6 +54,10 @@ It contanis the AWS services used by the web client. It has the following constr
 - A Step Functions State Machine to run these Lambda functions sequentially.
 - An EventBridge rule to invoke this state machine when the `createLolly` mutation is performed by the client side
 
+<p align="center">
+  <img alt="Architecture Diagram" src="./backend/P14c AWS Architecture.jpg" />
+</p>
+
 ### Stack 2: CloudFront Distribution, S3 Bucket and Lambda Edge
 
 It contains the infrastructure to deploy frontend client. It has the following constructs:
