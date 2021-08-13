@@ -65,3 +65,7 @@ It contains the infrastructure to deploy frontend client. It has the following c
 - A [S3](https://aws.amazon.com/s3/) Bucket with public access to store the static assets of Gatsby web app
 - A Cloud Front Distribution to serve the static assets through a CDN
 - A Lambda@Edge function triggered at `origin_response` event that tries to build and serve a static page for a lolly for which there is no static page in the S3 bucket yet. Otherwise, it redirects to `/404` page
+
+<p align="center">
+  <img alt="Architecture Diagram" src="./backend/CloudFront Distribution Stack with Lambda@Edge.jpg" />
+</p>
